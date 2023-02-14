@@ -1,0 +1,240 @@
+# for vNICs of POD Instances
+pod_instances:
+  pods:
+    - name: productpage-v1-99ffd949-2jtgp
+      map_id: 23
+      myip: 10.244.2.205
+      peer_ips:
+        # review-3
+        - 10.244.1.249 
+        - 10.244.1.241
+        - 10.244.1.247
+        # review-2
+        - 10.244.3.54
+        - 10.244.3.47
+        - 10.244.3.55
+        # review-1
+        - 10.244.4.51
+        - 10.244.4.58
+        - 10.244.4.59
+    - name: productpage-v1-99ffd949-5qxfp
+      map_id: 23
+      myip: 10.244.2.203
+      peer_ips:
+        # review-3
+        - 10.244.1.249 
+        - 10.244.1.241
+        - 10.244.1.247
+        # review-2
+        - 10.244.3.54
+        - 10.244.3.47
+        - 10.244.3.55
+        # review-1
+        - 10.244.4.51
+        - 10.244.4.58
+        - 10.244.4.59
+    - name: productpage-v1-99ffd949-h7nw6
+      map_id: 23
+      myip: 10.244.2.197
+      peer_ips:
+        # review-3
+        - 10.244.1.249 
+        - 10.244.1.241
+        - 10.244.1.247
+        # review-2
+        - 10.244.3.54
+        - 10.244.3.47
+        - 10.244.3.55
+        # review-1
+        - 10.244.4.51
+        - 10.244.4.58
+        - 10.244.4.59
+    - name: recommendationservice-5c86bbbf5c-5wfdh
+      map_id: 23
+      myip: 10.244.2.201
+      peer_ips:
+        # productcatalog
+        - 10.244.4.54
+        - 10.244.4.57
+    - name: recommendationservice-5c86bbbf5c-5wfdh
+      map_id: 23
+      myip: 10.244.2.200
+      peer_ips:
+        # productcatalog
+        - 10.244.4.54
+        - 10.244.4.57 
+  target_nic: 
+    name: flannel
+    nic_num: 4
+  changed_mac:
+    src: 
+      name: local_flannel.1
+      mac_addr: 9a:e7:4a:93:98:73
+    dst:
+      name: remote_flannel.1
+      mac_addr: xx:xx:xx:xx:xx:xx
+# for NIC of Flannel
+flannel:
+  map_id: 23
+  request_pair:
+    # productpage-1
+    - remote_ip: 10.244.1.249
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.1.241
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.1.247
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.3.47
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.4.51
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.4.58
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    - remote_ip: 10.244.3.38
+      local:
+        ip: 10.244.2.205
+        nic_num: 15
+        mac: 06:a3:25:78:b9:ba
+    # productpage-2
+    - remote_ip: 10.244.1.249
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.1.241
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.1.247
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.3.47
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.4.51
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.4.58
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    - remote_ip: 10.244.3.38
+      local:
+        ip: 10.244.2.203
+        nic_num: 13
+        mac: ba:50:40:65:f1:7f
+    # productpage-3
+    - remote_ip: 10.244.1.249
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.1.241
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.1.247
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.3.54
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.3.47
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.4.51
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.4.58
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    - remote_ip: 10.244.3.38
+      local:
+        ip: 10.244.2.197
+        nic_num: 8
+        mac: ce:58:59:7d:f1:b8
+    # recom-1
+    - remote_ip: 10.244.4.54
+      local:
+        ip: 10.244.2.201
+        nic_num: 11
+        mac: 5e:6a:ae:8c:cb:14
+    - remote_ip: 10.244.4.57
+      local:
+        ip: 10.244.2.201
+        nic_num: 11
+        mac: 5e:6a:ae:8c:cb:14
+    # recom-2
+    - remote_ip: 10.244.4.54
+      local:
+        ip: 10.244.2.200
+        nic_num: 10
+        mac: 6a:62:13:12:6e:a6
+    - remote_ip: 10.244.4.57
+      local:
+        ip: 10.244.2.200
+        nic_num: 10
+        mac: 6a:62:13:12:6e:a6
+  cni0_mac: 1e:e6:52:be:f2:51
