@@ -20,15 +20,15 @@
 from threading import local
 import yaml
 
-# 读取yaml文件
+# read yaml
 def readYaml(yamlPath):
     f = open(yamlPath, 'r', encoding='utf-8')
     cfg = f.read()
-    d = yaml.load(cfg)  # 用load方法转字典
+    d = yaml.load(cfg)  # change to dist
     f.close()
     return d
 
-# 生成flannel网卡的命令行
+# generate update commands for Flannel
 def genFlannelConfig(update_file, flannel_dict):
     base_cmd_line = "bpftool map update id "
     fw = open(update_file, 'w', encoding='utf-8')
@@ -41,7 +41,7 @@ def genFlannelConfig(update_file, flannel_dict):
     fw.write("\n")
     fw.close()
 
-# 生成pod网卡的命令行
+# generate update commands for vNICs of pods
 def genPodInstanceConfig(update_file, pod_dict):
     base_cmd_line = "bpftool map update id "
     fw = open(update_file, 'a', encoding='utf-8')
