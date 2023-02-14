@@ -18,7 +18,7 @@ struct rb_event {
         __u64 timestamp;
 } __attribute__((packed));
 
-/* 记录地址(ip:port) */
+/* IP Address (ip:port) */
 struct ip_port{
     __u32 ip4;
     __u16 port;
