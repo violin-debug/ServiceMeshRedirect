@@ -21,12 +21,12 @@ void bpf_sock_ops_ipv4(struct bpf_sock_ops *skops)
 	__u32 remote_port = skops->remote_port;
 
 	int is_update = 0;
-	// 判断是不是需要监听的服务ip
+	
 	struct ip_port remoteSvc = {};
 	remoteSvc.ip4 = remote_ip;
 	remoteSvc.port = remote_port;
 	int *if_in_svc_ip = bpf_map_lookup_elem(&svc_ip, &remoteSvc);
-	if(if_in_svc_ip != NULL){ // 需要监听的服务
+	if(if_in_svc_ip != NULL){ // target Address
 		is_update = 1;
 	}
 
