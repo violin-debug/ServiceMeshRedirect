@@ -24,7 +24,7 @@ void sk_msg_extract_key(struct sk_msg_md *msg,
 
 	// 1. if 127.0.0.6
 	if (local_ip == 0x600007F || remote_ip == 0x600007F){
-		// 直接互换
+		// exchange
         	key->sip4 = remote_ip;                  // stored in network byte order
                	key->dip4 = local_ip;                   // stored in network byte order
                 key->dport = bpf_htonl(local_port); // local_port stored in host byte order
@@ -32,14 +32,14 @@ void sk_msg_extract_key(struct sk_msg_md *msg,
 	}
 
 
-	// 判断是否为需要监控的服务
+	// target Address
 	struct ip_port remoteSvc = {};
 	remoteSvc.ip4 = remote_ip;
 	remoteSvc.port = remote_port;
 	int *if_in_svc_ip = bpf_map_lookup_elem(&svc_ip, &remoteSvc);
 	// extract key
 
-	// 2. 发送给特定的 svc/pod ip:port
+	// 2. send to svc/pod ip:port
 	if(if_in_svc_ip != NULL){
 		int redirection_direct = *if_in_svc_ip;
 		if( redirection_direct == 1){// redirection in a pod : replace the svc ip:port with 127.0.0.1:15001
