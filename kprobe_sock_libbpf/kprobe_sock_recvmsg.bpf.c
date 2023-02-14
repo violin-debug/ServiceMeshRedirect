@@ -4,8 +4,9 @@
 // #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
 
-// 一些定义
-// <bpf/bpf_tracing.h>头文件识别不了以及关于x86架构读取参数的定义无法识别
+// definitions 
+
+// part of <bpf/bpf_tracing.h>
 #include "../include/bpf_tracing.h"
 
 struct bpf_map_def {
@@ -30,7 +31,7 @@ struct rb_event {
         __u64 timestamp;
 } __attribute__((packed));
 
-/* 记录地址(ip:port) */
+/* IP address (ip:port) */
 struct ip_port{
     __u32 ip4;
     __u16 port;
@@ -50,17 +51,17 @@ int BPF_KPROBE(sock_recvmsg, struct socket *sok, struct msghdr *msg, int flags)
     struct sock * sk = BPF_CORE_READ(sok, sk);
     struct sock_common skp = BPF_CORE_READ(sk, __sk_common);
 
-    // 判断是否为需要关注的服务地址（ip:port）
-    // 转成主机序
+    // target Address（ip:port）
+    // change to host order
     struct ip_port src_addr_pair = {
 	.ip4 = bpf_ntohl(skp.skc_rcv_saddr),
         .port = skp.skc_num,
-    }; // 源地址端口对
+    }; // source 
 
     struct ip_port dst_addr_pair = {
         .ip4 = bpf_ntohl(skp.skc_daddr),
         .port = bpf_ntohs(skp.skc_dport),
-    }; // 目的地址端口对
+    }; // destination
     
     struct rb_event event_data = {
                 .type = 1,
@@ -79,7 +80,7 @@ int BPF_KPROBE(sock_recvmsg, struct socket *sok, struct msghdr *msg, int flags)
     is_target = bpf_map_lookup_elem(&svc_ip, &dst_addr_pair);
     if(is_target != NULL){
     	bpf_ringbuf_output(&trace_ringbuf, &event_data, sizeof(struct rb_event), 0);
-    }	    // 作为客户端，请求特定的服务地址
+    }	
 
     return 0;
 }
@@ -90,17 +91,17 @@ int BPF_KPROBE(sock_sendmsg, struct socket *sok, struct msghdr *msg)
     struct sock * sk = BPF_CORE_READ(sok, sk);
     struct sock_common skp = BPF_CORE_READ(sk, __sk_common);
 
-    // 判断是否为需要关注的服务地址（ip:port）
-    // 转成主机序
+    // target Address（ip:port）
+    // change to host order
     struct ip_port src_addr_pair = {
 	.ip4 = bpf_ntohl(skp.skc_rcv_saddr),
         .port = skp.skc_num,
-    }; // 源地址端口对
+    }; // source
 
     struct ip_port dst_addr_pair = {
         .ip4 = bpf_ntohl(skp.skc_daddr),
         .port = bpf_ntohs(skp.skc_dport),
-    }; // 目的地址端口对
+    }; // destination
 
     struct rb_event event_data = {
             .type = 0,
