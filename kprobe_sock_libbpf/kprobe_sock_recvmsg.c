@@ -108,7 +108,7 @@ int main(void)
 		goto cleanup;
 	}
 
-	/* 更新svc_ip */
+	/* Update: "svc_ip" */
 	struct ip_port test_key = {
 		.ip4 = 0x7F000001,
 		.port = 15001,
